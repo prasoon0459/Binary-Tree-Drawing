@@ -1,14 +1,16 @@
-class Node{
+/* @brief holds all necessary information about a node*/
+class Node 
+{
     public:
 
     int info;
-    Node * left;
-    Node * right;
+    Node* left;
+    Node* right;
     int x;
     int y;
     int offset;
     bool thread;
-    Node * parent;
+    Node* parent;
     int status;
 
     Node (int , Node*);

@@ -1,0 +1,3 @@
+*.o
+*.out
+examples/perfect_binary_trees
