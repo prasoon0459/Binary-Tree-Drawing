@@ -1,4 +1,6 @@
-class Node{
+/* @brief holds all necessary information about a node*/
+class Node 
+{
     public:
 
     int info;

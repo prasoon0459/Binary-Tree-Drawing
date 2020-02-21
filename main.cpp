@@ -8,7 +8,7 @@ using namespace std;
 
 Node* node;
 int CIRCLE_RADIUS, FACTOR = 1;
-
+/*@param root root of tree*/
 void plott(Node *root) {
     if(root != nullptr){
     	CIRCLE_RADIUS = 20/FACTOR;

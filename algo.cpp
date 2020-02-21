@@ -43,7 +43,12 @@ Node::~Node() {
 
 
 /**
-The TR tree drawing algorithm
+@brief The TR tree drawing algorithm
+@param root root of tree
+@param level current level of node
+@param rMost rightmost 
+@param lMost leftmost
+
 */
 void TRSetup(Node *root, int level, struct Extreme *rMost, struct Extreme *lMost, int stepY) {
     Node *l, *r;
@@ -101,7 +106,7 @@ void TRSetup(Node *root, int level, struct Extreme *rMost, struct Extreme *lMost
                     currSep += r->getOffset();
                     r = r->getRightNode();
                 }
-            } // while ends
+            } /* @remark while ends */
             root->setOffset((rootSep + 1)/2);
             lOffSum -= root->getOffset();
             rOffSum += root->getOffset();
@@ -155,8 +160,10 @@ void TRSetup(Node *root, int level, struct Extreme *rMost, struct Extreme *lMost
     }
 }
 
-/**
+/** @brief
 Assigns to the nodes their the absolute x coordinates
+@param xPos x position of current node
+@param root root of tree
 */
 void TRPetrify(Node *root, int xPos) {
     if(root != nullptr){
@@ -170,7 +177,9 @@ void TRPetrify(Node *root, int xPos) {
         TRPetrify(root->getRightNode(), xPos + root->getOffset());
     }
 }
-
+/* @brief driver code to draw trees
+@param root root of tree
+@param minsep minimum separation */
 void TRPlotTree(Node *root, int minsep) {
     MINSEP = minsep;
     struct Extreme rm, lm;
