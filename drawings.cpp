@@ -1,7 +1,7 @@
 #include <GL/glut.h>
 #include <cmath>
 #include "drawings.h"
-
+#include <bits/stdc++.h>
 using namespace std;
 
 
@@ -29,7 +29,7 @@ Draws nodes using the mid-point algo
 */
 void drawNode(int x0, int y0, int r)
 {
-	///Scan conversion starts at top most point of the circle.
+		///Scan conversion starts at top most point of the circle.
 	int x = 0, y = r;                       /// coordinates assuming centre at (0,0)
 	int d = 1-r;                            /// decision variable
 	int delE = 3, delSE = -2 * r + 5;   /// updating decision variable -'d'.
