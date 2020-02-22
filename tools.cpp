@@ -218,7 +218,7 @@ int alignTree(Node *root, int radius, int HEIGHT, int WIDTH) {
     centerTree(root, (arr[0]+arr[1])/2);
 
     int factor = (2 * abs(arr[0]))/1000;
-    cout << factor << endl;
+    // cout << factor << endl;
     translateX(root, WIDTH/2);
     scaleDown(root, factor + 1, WIDTH/2);
     return factor + 1;

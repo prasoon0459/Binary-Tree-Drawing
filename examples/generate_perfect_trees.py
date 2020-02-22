@@ -1,7 +1,7 @@
 def num_nodes(m):
 	return 2 ** (m+1) - 1
 
-for m in range(0, 15):
+for m in range(0, 17):
 	n = num_nodes(m)
 	with open("perfect_binary_trees", "a") as file:
 		file.write(str(n))
@@ -9,3 +9,4 @@ for m in range(0, 15):
 			file.write(" ")
 			file.write(str(item))
 		file.write("\n")
+	print(2**m - 1)
