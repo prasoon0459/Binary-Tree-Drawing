@@ -146,8 +146,6 @@ void TRPetrify(Node *root, int xPos) {
 void TRPlotTree(Node *root, int minsep) {
     MINSEP = minsep;
     struct Extreme rm, lm;
-    cout<<"BEFORE"<<endl;
-    printTree(root);
     TRSetup(root, 0, rm, lm, minsep);
     TRPetrify(root, 0);
 }

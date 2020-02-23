@@ -4,3 +4,11 @@
 15 D A F E B R T G Q - - V - J L
 7 C D E - - F -
 6 R O H I - T
+12 A B - - C - - - - H K -
+9 a b c d - - x y z
+7 A - B - - C D
+9 A B - C D - - E F
+12 D A F E B R - G Q - - V
+2 1 2
+29 A B C D E F G H I J K L M N O P Q R S - T - U - - V W - X
+67 A B C D E F G H I J K L M N O P Q R S - T - U - - V W - X - - - Y - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - Z
