@@ -1,7 +1,6 @@
 #include <GL/glut.h>
 #include <cmath>
 #include "drawings.h"
-#include <bits/stdc++.h>
 using namespace std;
 
 
