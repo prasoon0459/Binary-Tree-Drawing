@@ -12,17 +12,17 @@ int CIRCLE_RADIUS, FACTOR = 1;
 void plott(Node *root) {
     if(root != nullptr){
     	CIRCLE_RADIUS = 20/FACTOR;
-        plott(root->getLeftNode());
-        drawNode(root->getX(),root->getY(), CIRCLE_RADIUS);
-        if(root->getLeftNode()!= nullptr){
-            connectNodes(root->getX(),root->getY(),root->getLeftNode()->getX(),
-                            root->getLeftNode()->getY(), CIRCLE_RADIUS);
+        plott(root->left);
+        drawNode(root->x,root->y, CIRCLE_RADIUS, root->info, FACTOR==1?true:false);
+        if(root->left!= nullptr){
+            connectNodes(root->x,root->y,root->left->x,
+                            root->left->y, CIRCLE_RADIUS);
         }
-        if(root->getRightNode()!= nullptr){
-            connectNodes(root->getX(),root->getY(),root->getRightNode()->getX(),
-                            root->getRightNode()->getY(), CIRCLE_RADIUS);
+        if(root->right!= nullptr){
+            connectNodes(root->x,root->y,root->right->x,
+                            root->right->y, CIRCLE_RADIUS);
         }
-        plott(root->getRightNode());
+        plott(root->right);
     }
 }
 
@@ -40,13 +40,14 @@ int main(int argc, char** argv){
     }
     char mode = argv[1][0];
     node = inputTree(mode);
+    printTree(node);
     auto start = chrono::steady_clock::now(); 
     TRPlotTree(node, 100);
-    // cout<<"Relative coordinates: "<<endl;
-    // printTree(node);
+    cout<<"Relative coordinates: "<<endl;
+    printTree(node);
     FACTOR = alignTree(node,10,1000,1000);
-    // cout<<"After alignment: "<<endl;
-    // printTree(node);
+    cout<<"After alignment: "<<endl;
+    printTree(node);
     auto calculation_done = chrono::steady_clock::now();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_SINGLE | GLUT_DEPTH);
@@ -61,8 +62,9 @@ int main(int argc, char** argv){
     auto end = chrono::steady_clock::now(); 
     auto calculation_time = chrono::duration_cast<chrono::microseconds>(calculation_done - start).count();
     auto plot_time = chrono::duration_cast<chrono::microseconds>(end - calculation_done).count();
-    cout << "Calculation: " << calculation_time << endl;
-    cout << "Plotting: " << plot_time << endl;
+    // cout << "Calculation: " << calculation_time << endl;
+    // cout << "Plotting: " << plot_time << endl;
+    cout << calculation_time <<","<<plot_time<<endl;
     glutMainLoop();
     return 0;
 }

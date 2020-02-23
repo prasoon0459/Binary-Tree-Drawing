@@ -1,9 +1,8 @@
 /* @brief holds all necessary information about a node*/
 class Node 
 {
-    public:
-
-    int info;
+public:
+    char info;
     Node* left;
     Node* right;
     int x;
@@ -13,24 +12,20 @@ class Node
     Node* parent;
     int status;
 
-    Node (int , Node*);
-    ~Node();
+    Node(char info, Node *parent): info(info), left(nullptr), right(nullptr), x(-1), y(-1), offset(0), thread(false), parent(parent), status(0) {}
 
-	int getInfo();void setInfo(int );
-    int getX();void setX(int ) ;
-    int getY();void setY(int );
-    Node* getLeftNode();void setLeftNode(Node* );
-    Node* getRightNode();void setRightNode(Node* ) ;
-    int getOffset();void setOffset(int );
-    Node* getParent();void setParent(Node* );
-	int getStatus();void setStatus(int ) ;
-	bool isThread();void setThread(bool ) ;
+    ~Node() {
+        if(left != nullptr)
+            left->~Node();
+        if(right != nullptr)
+            right->~Node();
+    }
 };
 
 struct Extreme{
-    Node* addr;
-    int off;
-    int lev;
+    Node* addr; // address
+    int off; // offset from root of subtree 
+    int lev; // tree level
 };
 
 void TRPlotTree(Node *, int );

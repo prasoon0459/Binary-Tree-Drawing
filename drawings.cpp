@@ -27,16 +27,13 @@ void symmetric(int x, int y, int x0, int y0) {
 }
 
 
-/** @brief
-Draws nodes using the mid-point algo
-@param x0 denotes x coordinate of the centre of circle with 'r' as its radius.
-@param y0 denotes y coordinate of the centre of circle
-@param r denotes radius of circle 
+/** @brief Draws circle using the mid-point algo
+@param x0 x coordinate of the centre of circle
+@param y0 y coordinate of the centre of circle
+@param r radius
 */
-
-void drawNode(int x0, int y0, int r) 
-{
-		/* @remark Scan conversion starts at top most point of the circle.*/
+void drawCircle(int x0, int y0, int r){
+	/* @remark Scan conversion starts at top most point of the circle.*/
 	int x = 0, y = r;                       /* @remark coordinates assuming centre at (0,0)*/
 	int d = 1-r;                            /* @remark decision variable */
 	int delE = 3, delSE = -2 * r + 5;   /* @remark updating decision variable -'d'.*/
@@ -61,6 +58,16 @@ void drawNode(int x0, int y0, int r)
 		}
 		x++;
 		symmetric(x, y, x0, y0);             /* @remark Plot the symmetrical points*/
+	}
+}
+
+void drawNode(int x0, int y0, int r, char t, bool showLabels) 
+{
+	drawCircle(x0, y0,r);
+	if(showLabels){
+		const unsigned char c = t;
+		glRasterPos2f(x0 - 4, y0);
+		glutBitmapCharacter(GLUT_BITMAP_8_BY_13, c);
 	}
 }
 /* @brief Implements Bresenham's line drawing algorithm

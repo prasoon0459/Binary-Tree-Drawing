@@ -1,47 +1,10 @@
-#include "Node.h"
+// #include "Node.h"
 #include <cmath>
-
+#include "tools.h"
+#include <bits/stdc++.h>
 int MINSEP = 7;
 
-Node::Node(int info, Node *parent) : info(info), left(nullptr), right(nullptr), x(-1), y(-1), offset(0), thread(false), parent(parent), status(0) { }
-
-void Node::setInfo(int info) { info = info; }
-int Node::getInfo() { return info; }
-
-void Node::setLeftNode(Node *l) { left = l; }
-Node *Node::getLeftNode(){ return left; }
-
-void Node::setRightNode(Node *r) { right = r; }
-Node *Node::getRightNode()  { return right; }
-
-void Node::setX(int x) { this->x = x; }
-int Node::getX()  { return x; }
-
-void Node::setY(int y) { this->y = y; }
-int Node::getY()  { return y; }
-
-bool Node::isThread()  { return thread; }
-void Node::setThread(bool thread) { thread = thread; }
-
-void Node::setParent(Node *parent) { this->parent = parent; }
-Node *Node::getParent()  {return this->parent; }
-
-int Node::getStatus()  { return this->status; }
-void Node::setStatus(int status) {this->status = status; }
-
-int Node::getOffset()  {return this->offset; }
-void Node::setOffset(int offset) {this->offset = offset;}
-
-
-
-Node::~Node() {
-    if(left != nullptr)
-        left->~Node();
-    if(right != nullptr)
-        right->~Node();
-}
-
-
+using namespace std;
 /**
 @brief The TR tree drawing algorithm
 @param root root of tree
@@ -50,29 +13,29 @@ Node::~Node() {
 @param lMost leftmost
 
 */
-void TRSetup(Node *root, int level, struct Extreme *rMost, struct Extreme *lMost, int stepY) {
+void TRSetup(Node *root, int level, struct Extreme& rMost, struct Extreme& lMost, int stepY) {
     Node *l, *r;
     struct Extreme ll, lr, rl, rr;
 
     int currSep, rootSep, lOffSum, rOffSum;
     if(root == nullptr) {
-        rMost->lev = -1;
-        lMost->lev = -1;
+        rMost.lev = -1;
+        lMost.lev = -1;
     }
     else {
-        root->setY(level);
-        l = root->getLeftNode();
-        r = root->getRightNode();
-        TRSetup(l, level+1, &lr, &ll, stepY);
-        TRSetup(r, level+1, &rr, &rl, stepY);
+        root->y = level;
+        l = root->left;
+        r = root->right;
+        TRSetup(l, level+1, lr, ll, stepY);
+        TRSetup(r, level+1, rr, rl, stepY);
         if(r == nullptr && l == nullptr) {
-            rMost->addr = root;
-            lMost->addr = root;
-            rMost->lev = level;
-            lMost->lev = level;
-            rMost->off = 0;
-            lMost->off = 0;
-            root->setOffset(0);
+            rMost.addr = root;
+            lMost.addr = root;
+            rMost.lev = level;
+            lMost.lev = level;
+            rMost.off = 0;
+            lMost.off = 0;
+            root->offset = 0;
         }
         else {
             currSep = MINSEP;
@@ -82,78 +45,78 @@ void TRSetup(Node *root, int level, struct Extreme *rMost, struct Extreme *lMost
 
             while(l != nullptr && r != nullptr) {
                 if(currSep < MINSEP) {
-                    rootSep += MINSEP - currSep;
+                    rootSep += (MINSEP - currSep);
                     currSep = MINSEP;
                 }
-                if(l->getRightNode() != nullptr) {
-                    lOffSum += l->getOffset();
-                    currSep -= l->getOffset();
-                    l = l->getRightNode();
+                if(l->right != nullptr) {
+                    lOffSum += l->offset;
+                    currSep -= l->offset;
+                    l = l->right;
                 }
                 else {
-                    lOffSum -= l->getOffset();
-                    currSep += l->getOffset();
-                    l = l->getLeftNode();
+                    lOffSum -= l->offset;
+                    currSep += l->offset;
+                    l = l->left;
                 }
 
-                if(r->getLeftNode() != nullptr) {
-                    rOffSum -= r->getOffset();
-                    currSep -= r->getOffset();
-                    r = r->getLeftNode();
+                if(r->left != nullptr) {
+                    rOffSum -= r->offset;
+                    currSep -= r->offset;
+                    r = r->left;
                 }
                 else {
-                    rOffSum += r->getOffset();
-                    currSep += r->getOffset();
-                    r = r->getRightNode();
+                    rOffSum += r->offset;
+                    currSep += r->offset;
+                    r = r->right;
                 }
-            } /* @remark while ends */
-            root->setOffset((rootSep + 1)/2);
-            lOffSum -= root->getOffset();
-            rOffSum += root->getOffset();
+            } /* while ends */
+            root->offset = ((rootSep + 1)/2);
+            lOffSum -= root->offset;
+            rOffSum += root->offset;
 
-            if(rl.lev > ll.lev || root->getLeftNode() == nullptr) {
-                lMost->addr = rl.addr;
-                lMost->lev = rl.lev;
-                lMost->off = rl.off;
-                lMost->off += root->getOffset();
+            if(rl.lev > ll.lev || root->left == nullptr) {
+                lMost.addr = rl.addr;
+                lMost.lev = rl.lev;
+                lMost.off = rl.off;
+                lMost.off += root->offset;
             }
             else {
-                lMost->addr = ll.addr;
-                lMost->lev = ll.lev;
-                lMost->off = ll.off;
-                lMost->off -= root->getOffset();
+                lMost.addr = ll.addr;
+                lMost.lev = ll.lev;
+                lMost.off = ll.off;
+                lMost.off -= root->offset;
             }
-            if(lr.lev > rr.lev || root->getRightNode() == nullptr) {
-                rMost->addr = lr.addr;
-                rMost->lev = lr.lev;
-                rMost->off = lr.off;
-                rMost->off -= root->getOffset();
+            if(lr.lev > rr.lev || root->right == nullptr) {
+                rMost.addr = lr.addr;
+                rMost.lev = lr.lev;
+                rMost.off = lr.off;
+                rMost.off -= root->offset;
             }
             else {
-                rMost->addr = rr.addr;
-                rMost->lev = rr.lev;
-                rMost->off = rr.off;
-                rMost->off += root->getOffset();
+                rMost.addr = rr.addr;
+                rMost.lev = rr.lev;
+                rMost.off = rr.off;
+                rMost.off += root->offset;
             }
 
-            if (l != nullptr && l != root->getLeftNode()) {
-                rr.addr->setThread(true);
-                rr.addr->setOffset(abs((rr.off + root->getOffset()) - lOffSum));
-                if((lOffSum - root->getOffset()) <= rr.off) {
-                    rr.addr->setLeftNode(l);
+            if (l != nullptr && l != root->left) {
+                rr.addr->thread = true;
+                rr.addr->offset = (abs((rr.off + root->offset) - lOffSum));
+                if((lOffSum - root->offset) <= rr.off) {
+                    rr.addr->left = l;
                 }
                 else {
-                    rr.addr->setRightNode(l);
+                    rr.addr->right = l;
                 }
             }
-            else if(r != nullptr && r != root->getRightNode()) {
-                ll.addr->setThread(true);
-                ll.addr->setOffset(abs((ll.off - root->getOffset()) - rOffSum));
-                if((rOffSum + root->getOffset()) >= ll.off) {
-                    ll.addr->setRightNode(r);
+            else if(r != nullptr && r != root->right) {
+                ll.addr->thread = true;
+                ll.addr->offset = (abs((ll.off - root->offset) - rOffSum));
+                if((rOffSum + root->offset) >= ll.off) {
+                    ll.addr->right = r;
                 }
                 else {
-                    ll.addr->setLeftNode(r);
+                    ll.addr->left = r;
                 }
             }
         }
@@ -167,14 +130,14 @@ Assigns to the nodes their the absolute x coordinates
 */
 void TRPetrify(Node *root, int xPos) {
     if(root != nullptr){
-        root->setX(xPos);
-        if(root->isThread()) {
-            root->setThread(false);
-            root->setLeftNode(nullptr);
-            root->setRightNode(nullptr);
+        root->x = xPos;
+        if(root->thread) {
+            root->thread = false;
+            root->left = nullptr;
+            root->right = nullptr;
         }
-        TRPetrify(root->getLeftNode(), xPos - root->getOffset());
-        TRPetrify(root->getRightNode(), xPos + root->getOffset());
+        TRPetrify(root->left, xPos - root->offset);
+        TRPetrify(root->right, xPos + root->offset);
     }
 }
 /* @brief driver code to draw trees
@@ -183,6 +146,8 @@ void TRPetrify(Node *root, int xPos) {
 void TRPlotTree(Node *root, int minsep) {
     MINSEP = minsep;
     struct Extreme rm, lm;
-    TRSetup(root, 0, &rm, &lm, minsep);
+    cout<<"BEFORE"<<endl;
+    printTree(root);
+    TRSetup(root, 0, rm, lm, minsep);
     TRPetrify(root, 0);
 }

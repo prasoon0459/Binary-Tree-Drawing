@@ -7,17 +7,21 @@
 1. The 0th element of the array is the root. 
 2. The left and right children of element *i* in the array are *2i + 1* and *2i + 2* respectively. 
 3. The first line of input must contain an integer *n*, the size of the array being inputted. 
-4. The next line must contain *n* space-separated numbers denoting the value inside of the nodes. 
-5. If a node isn't present, enter -1. 
+4. The next line must contain *n* space-separated characters denoting the value inside of the nodes. 
+5. If a node isn't present, use `-` to indicate that element doesn't exist. 
 
+# Examples
 ## Perfect Binary Trees Dataset
 
 You can run the program to make complete binary trees of a certain depth. 
 1. Go to the `examples` directory and run `python generate_perfect_trees.py`.
 2. Come back to the source director. `cd ..`
-3. Run `grep "^15 " examples/perfect_binary_trees |  ./a.out` to select a binary tree with `15 ` nodes.
+3. Run `grep "^15 " examples/perfect_binary_trees |  ./a.out a` to select a binary tree with `15 ` nodes.
 4. The value 15 can be modified to `[1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 4095...]`.
 5. The program will report the time taken to calculate the coordinates and the time taken to plot them separatly.
+
+## Other Examples
+More (small) examples are available in the `examples/examples.txt` file. Each line is one example. To run the 5th example, use: `head examples/examples.txt -n 5 | tail --lines=1 | ./a.out a` or just run `./a.out a` and copy-paste the line.
 
 # Run Times
 Running it on perfect and complete trees of different sizes gave us this graph, which shows that calculation time increases significantly as input size increases while plotting time doesn't seem to be as straightforward. The fall in plot times at large # of nodes can probably be attributed to the fact that the number of points in the circle of each node falls as the node size becomes smaller. These results can be reproduced by: 
