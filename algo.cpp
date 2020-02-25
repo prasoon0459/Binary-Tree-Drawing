@@ -5,14 +5,14 @@
 int MINSEP = 7;
 
 using namespace std;
-/**
-@brief The TR tree drawing algorithm
-@param root root of tree
-@param level current level of node
-@param rMost rightmost 
-@param lMost leftmost
 
-*/
+/*
+ * @brief The TR tree drawing algorithm
+ * @param root root of tree
+ * @param level current level of node
+ * @param rMost rightmost 
+ * @param lMost leftmost
+ */
 void TRSetup(Node *root, int level, struct Extreme& rMost, struct Extreme& lMost, int stepY) {
     Node *l, *r;
     struct Extreme ll, lr, rl, rr;
@@ -123,11 +123,11 @@ void TRSetup(Node *root, int level, struct Extreme& rMost, struct Extreme& lMost
     }
 }
 
-/** @brief
-Assigns to the nodes their the absolute x coordinates
-@param xPos x position of current node
-@param root root of tree
-*/
+/* 
+ * @brief Assigns to the nodes their the absolute x coordinates
+ * @param xPos x position of current node
+ * @param root root of tree
+ */
 void TRPetrify(Node *root, int xPos) {
     if(root != nullptr){
         root->x = xPos;
@@ -140,9 +140,12 @@ void TRPetrify(Node *root, int xPos) {
         TRPetrify(root->right, xPos + root->offset);
     }
 }
-/* @brief driver code to draw trees
-@param root root of tree
-@param minsep minimum separation */
+
+/* 
+ * @brief tree plotting tree
+ * @param root root of tree
+ * @param minsep minimum separation 
+ */
 void TRPlotTree(Node *root, int minsep) {
     MINSEP = minsep;
     struct Extreme rm, lm;

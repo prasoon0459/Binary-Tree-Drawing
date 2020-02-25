@@ -1,14 +1,32 @@
+## @package runtimes
+# Run the binary tree drawing algorithm for different sizes of inputs
+# of perfect binary trees multiple times and plot the average time
+# taken to draw each of them. Also, save all runtime data to file at a 
+# user specified location
+
 import numpy as np
 import os
 import matplotlib.pyplot as plt
 
+## @var values
+# set of number of nodes to test the program with 
 values = [1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047, 4095, 8191, 16383, 32767]
 template = "grep '{} ' examples/perfect_binary_trees |  ./a.out a"
+
+## @var all_plot_times
+# an array of arrays storing all the runtimes for plotting
 all_plot_times = []
+## @var all_calculate_times
+# an array of arrays storing all the runtimes for calculation of node positions
 all_calculate_times = []
 average_plot_times = []
 average_calculate_times = []
 
+
+## @remark
+# make sure to remove the glutMainLoop() function call in main.cpp before running this
+# code - not doing so will cause the program to wait till one window is closed before moving
+# to the next round of execution
 for value in values:
 	print("Doing value: ", value)
 	plot_times = []

@@ -103,11 +103,11 @@ Node* array_to_tree(vector<char> tree, int index, Node* parent)
 Node* inputTree(char mode)
 {
 	if(mode == 'i' || mode == 'I'){
-		/* @remark interactive mode */
+		/* interactive mode */
 		return interactive_input();
 	}
 	else if(mode == 'a' || mode == 'a'){
-		/* @remark array mode: represent binary tree as array. */
+		/* array mode: represent binary tree as array. */
         int n;
 		cin >> n;
 		vector<char> tree;
@@ -225,7 +225,7 @@ void scaleDown(Node* root, int factor, int mid){
  * @param radius radius of node
  * @param HEIGHT height of tree
  * @param WIDTH width of tree
- * @return allignment of tree 
+ * @return scale factor to shrink the tree by 
  */
 int alignTree(Node *root, int radius, int HEIGHT, int WIDTH) {	
     mulHeight(root, 10*radius);
